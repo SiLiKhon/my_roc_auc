@@ -22,7 +22,8 @@ def my_roc_auc(classes : np.ndarray,
         )
     data['c'], data['p'], data['w'] = classes, predictions, weights
 
-    data = np.sort(data, order=['p', 'c'])
+    data = data[np.argsort(data['c'])]
+    data = data[np.argsort(data['p'], kind='mergesort')] # here we're relying on stability as we need class orders preserved
 
     correction = 0.
     # mask1 - bool mask to highlight collision areas
